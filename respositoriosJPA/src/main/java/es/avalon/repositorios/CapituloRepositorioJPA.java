@@ -44,7 +44,7 @@ public class CapituloRepositorioJPA {
 
 	}
 	
-	public void insertar(Capitulo libro) {
+	public void insertar(Capitulo capitulo) {
 
 		// EntityManagerFactory emf =
 		// Persistence.createEntityManagerFactory("UnidadLibros");
@@ -52,10 +52,43 @@ public class CapituloRepositorioJPA {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction t = em.getTransaction();
 		t.begin();
-		em.persist(libro);
+		em.persist(capitulo);
 		t.commit();
 		em.close();
 
 	}
 	
+	public Capitulo buscarUnCapitulo(String titulo) {
+		//para obtener el libro: fetch
+		EntityManager em = emf.createEntityManager();
+		return em.find(Capitulo.class, titulo);
+
+	}
+	
+	public void deleteCapitulo(Capitulo capitulo) {
+
+		// EntityManagerFactory emf =
+		// Persistence.createEntityManagerFactory("UnidadLibros");
+
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction t = em.getTransaction();
+		t.begin();
+		
+		//se hace el merge por si se crea un new capitulo, sino no haria falta
+		em.remove(em.merge(capitulo));
+		t.commit();
+		em.close();
+
+	}
+
+	public void salvarCapitulo(Capitulo capitu) {
+		
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction t = em.getTransaction();
+		t.begin();
+		em.merge(capitu);
+		t.commit();
+		em.close();
+		
+	}
 }
