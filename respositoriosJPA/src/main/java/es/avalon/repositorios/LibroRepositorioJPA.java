@@ -8,7 +8,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-
+import es.avalon.jpa.negocio.Capitulo;
 import es.avalon.jpa.negocio.Libro;
 
 public class LibroRepositorioJPA {
@@ -36,33 +36,6 @@ public class LibroRepositorioJPA {
 		em.close();
 
 	}
-
-//	public static void update(Libro l2) {
-//		EntityManagerFactory emf =Persistence.createEntityManagerFactory("UnidadOrdenador");
-//		 
-//		 EntityManager em = emf.createEntityManager();
-//		 
-//		 //find: filtra
-//		 //Libro l2=em.find(Libro.class, "RepositoryJPA");
-//		 
-//		 //l2.setPaginas(1000);
-//		 
-//		 
-//		 try {
-//		 em.getTransaction().begin();
-//		 
-//		 //merge: update
-//		 em.merge(l2);
-//		 
-//		 em.getTransaction().commit();
-//		 } catch (Exception e) {
-//		 
-//		 e.printStackTrace();
-//		 }finally {
-//		 em.close();
-//		 
-//		 }
-//	}
 
 	// libro le recibo desde la web new , DETACHED
 	public void delete(Libro l2) {
@@ -100,6 +73,16 @@ public class LibroRepositorioJPA {
 		em.merge(libro);
 		t.commit();
 		em.close();
+
+	}
+	
+	public List<Libro> searchLibro(String titulo) {
+		System.out.println("searchLibro llega: "+titulo);
+		EntityManager em = emf.createEntityManager();
+		TypedQuery<Libro> consulta = em.createQuery("select l from Libro l where l.titulo=:titulo", Libro.class);
+		
+		consulta.setParameter("titulo", titulo);
+		return consulta.getResultList();
 
 	}
 
