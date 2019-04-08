@@ -1,4 +1,4 @@
-package es.avalon.repositorios;
+package es.avalon.repositorios.jpa;
 
 import java.util.List;
 
@@ -8,13 +8,20 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
+import org.springframework.stereotype.Component;
+
 import es.avalon.jpa.negocio.Capitulo;
 import es.avalon.jpa.negocio.Libro;
+import es.avalon.repositorios.LibroRepositorio;
 
-public class LibroRepositorioJPA {
+@Component
+public class LibroRepositorioJPA implements LibroRepositorio {
 
 	EntityManagerFactory emf = Persistence.createEntityManagerFactory("UnidadLibros");
 
+	/* (non-Javadoc)
+	 * @see es.avalon.repositorios.LibroRepositorio#buscarTodos()
+	 */
 	public List<Libro> buscarTodos() {
 
 		EntityManager em = emf.createEntityManager();
@@ -23,6 +30,9 @@ public class LibroRepositorioJPA {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see es.avalon.repositorios.LibroRepositorio#insertar(es.avalon.jpa.negocio.Libro)
+	 */
 	public void insertar(Libro libro) {
 
 		// EntityManagerFactory emf =
@@ -38,6 +48,9 @@ public class LibroRepositorioJPA {
 	}
 
 	// libro le recibo desde la web new , DETACHED
+	/* (non-Javadoc)
+	 * @see es.avalon.repositorios.LibroRepositorio#delete(es.avalon.jpa.negocio.Libro)
+	 */
 	public void delete(Libro l2) {
 
 		EntityManager em = emf.createEntityManager();
@@ -50,6 +63,9 @@ public class LibroRepositorioJPA {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see es.avalon.repositorios.LibroRepositorio#buscarUno(java.lang.String)
+	 */
 	public Libro buscarUno(String titulo) {
 
 		// EntityManagerFactory emf =
@@ -62,6 +78,9 @@ public class LibroRepositorioJPA {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see es.avalon.repositorios.LibroRepositorio#salvar(es.avalon.jpa.negocio.Libro)
+	 */
 	public void salvar(Libro libro) {
 
 		// EntityManagerFactory emf =
@@ -76,6 +95,9 @@ public class LibroRepositorioJPA {
 
 	}
 	
+	/* (non-Javadoc)
+	 * @see es.avalon.repositorios.LibroRepositorio#searchLibro(java.lang.String)
+	 */
 	public List<Libro> searchLibro(String titulo) {
 		System.out.println("searchLibro llega: "+titulo);
 		EntityManager em = emf.createEntityManager();
@@ -86,6 +108,9 @@ public class LibroRepositorioJPA {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see es.avalon.repositorios.LibroRepositorio#buscarTodosOrdenados(java.lang.String)
+	 */
 	public List<Libro> buscarTodosOrdenados(String campo) {
 
 		System.out.println("hhhhhhhhhhhhhhhhhhhhh " + campo);

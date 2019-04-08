@@ -1,4 +1,4 @@
-package es.avalon.repositorios;
+package es.avalon.repositorios.jpa;
 
 import java.util.List;
 
@@ -9,14 +9,21 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
+import org.springframework.stereotype.Component;
+
 import es.avalon.jpa.negocio.Capitulo;
 import es.avalon.jpa.negocio.Libro;
+import es.avalon.repositorios.CapituloRepositorio;
 
-public class CapituloRepositorioJPA {
+@Component
+public class CapituloRepositorioJPA implements CapituloRepositorio {
 
 
 	EntityManagerFactory emf = Persistence.createEntityManagerFactory("UnidadLibros");
 
+	/* (non-Javadoc)
+	 * @see es.avalon.repositorios.CapituloRepositorio#buscarTodos()
+	 */
 	public List<Capitulo> buscarTodos() {
 
 		EntityManager em = emf.createEntityManager();
@@ -27,6 +34,9 @@ public class CapituloRepositorioJPA {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see es.avalon.repositorios.CapituloRepositorio#buscarTodosCapitulosConSusLibros()
+	 */
 	public List<Capitulo> buscarTodosCapitulosConSusLibros() {
 		//para obtener el libro: fetch
 		EntityManager em = emf.createEntityManager();
@@ -36,6 +46,9 @@ public class CapituloRepositorioJPA {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see es.avalon.repositorios.CapituloRepositorio#buscarTodosParaUnLibro(es.avalon.jpa.negocio.Libro)
+	 */
 	public List<Capitulo> buscarTodosParaUnLibro(Libro l) {
 		System.out.println("buscarTodosParaUnLibro llega el Libro: "+l.getTitulo());
 		EntityManager em = emf.createEntityManager();
@@ -45,6 +58,9 @@ public class CapituloRepositorioJPA {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see es.avalon.repositorios.CapituloRepositorio#insertar(es.avalon.jpa.negocio.Capitulo)
+	 */
 	public void insertar(Capitulo capitulo) {
 
 		// EntityManagerFactory emf =
@@ -59,6 +75,9 @@ public class CapituloRepositorioJPA {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see es.avalon.repositorios.CapituloRepositorio#buscarUnCapitulo(java.lang.String)
+	 */
 	public Capitulo buscarUnCapitulo(String titulo) {
 		//para obtener el libro: fetch
 		EntityManager em = emf.createEntityManager();
@@ -66,6 +85,9 @@ public class CapituloRepositorioJPA {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see es.avalon.repositorios.CapituloRepositorio#deleteCapitulo(es.avalon.jpa.negocio.Capitulo)
+	 */
 	public void deleteCapitulo(Capitulo capitulo) {
 
 		// EntityManagerFactory emf =
@@ -82,6 +104,9 @@ public class CapituloRepositorioJPA {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see es.avalon.repositorios.CapituloRepositorio#salvarCapitulo(es.avalon.jpa.negocio.Capitulo)
+	 */
 	public void salvarCapitulo(Capitulo capitu) {
 
 		EntityManager em = emf.createEntityManager();
@@ -94,6 +119,9 @@ public class CapituloRepositorioJPA {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see es.avalon.repositorios.CapituloRepositorio#searchCapitulo(java.lang.String, java.lang.String)
+	 */
 	public List<Capitulo> searchCapitulo(String titulo, String libro) {
 
 		EntityManager em = emf.createEntityManager();
@@ -114,6 +142,9 @@ public class CapituloRepositorioJPA {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see es.avalon.repositorios.CapituloRepositorio#OrdenarCapitulosPorCampo(java.lang.String, java.lang.String)
+	 */
 	public List<Capitulo> OrdenarCapitulosPorCampo(String campo, String libro) {
 
 		System.out.println(libro+"hhhhhhhhhhhhhhhhhhhhh " + campo);
