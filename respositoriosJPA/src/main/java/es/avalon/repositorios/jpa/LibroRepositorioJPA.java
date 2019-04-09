@@ -1,98 +1,62 @@
 package es.avalon.repositorios.jpa;
 
 import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
-
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-
-import es.avalon.jpa.negocio.Capitulo;
 import es.avalon.jpa.negocio.Libro;
 import es.avalon.repositorios.LibroRepositorio;
+import es.avalon.repositorios.jpa.generic.GenericRepositoryJPA;
 
 //@Component
 @Repository
-public class LibroRepositorioJPA implements LibroRepositorio {
-
-	//EntityManagerFactory emf = Persistence.createEntityManagerFactory("UnidadLibros");
-	
-@PersistenceContext
-	EntityManager em;
+//public class LibroRepositorioJPA implements LibroRepositorio {
+public class LibroRepositorioJPA extends GenericRepositoryJPA<Libro,String> implements LibroRepositorio {
 	
 
-	public List<Libro> buscarTodos() {
+	//ESTO ESTA EN GenericRepositoryJPA
+//@PersistenceContext
+	//EntityManager em;
+	
 
-		//EntityManager em = emf.createEntityManager();
-		TypedQuery<Libro> consulta = em.createQuery("select l from Libro l", Libro.class);
-		return consulta.getResultList();
+	//public List<Libro> buscarTodos() {	
+		//TypedQuery<Libro> consulta = em.createQuery("select l from Libro l", Libro.class);
+		//return consulta.getResultList();
 
-	}
+	//}
 
 
-	public void insertar(Libro libro) {
+	//public void insertar(Libro libro) {
+	//	em.persist(libro);	
+	//}
 
-		// EntityManagerFactory emf =
-		// Persistence.createEntityManagerFactory("UnidadLibros");
+	
+	//public void delete(Libro l2) {
 
-		//EntityManager em = emf.createEntityManager();
-		//EntityTransaction t = em.getTransaction();
-		//t.begin();
-		em.persist(libro);
-		//t.commit();
-		//em.close();
+	//	Libro libroGestionado = em.merge(l2);
+	//	em.remove(libroGestionado);
 
-	}
+	//}
 
-	// libro le recibo desde la web new , DETACHED
-	/* (non-Javadoc)
-	 * @see es.avalon.repositorios.LibroRepositorio#delete(es.avalon.jpa.negocio.Libro)
-	 */
-	public void delete(Libro l2) {
+	//public Libro buscarUno(String titulo) {
 
-		//EntityManager em = emf.createEntityManager();
-		//EntityTransaction t = em.getTransaction();
-		//t.begin();
-		Libro libroGestionado = em.merge(l2);
-		em.remove(libroGestionado);
-		//t.commit();
-		//em.close();
+		//Libro libro = em.find(Libro.class, titulo);
+		//return libro;
 
-	}
+	//}
 
-	public Libro buscarUno(String titulo) {
+	//public void salvar(Libro libro) {
 
-		// EntityManagerFactory emf =
-		// Persistence.createEntityManagerFactory("UnidadLibros");
-
-		//EntityManager em = emf.createEntityManager();
-		Libro libro = em.find(Libro.class, titulo);
-		//em.close();
-		return libro;
-
-	}
-
-	public void salvar(Libro libro) {
-
-		// EntityManagerFactory emf =
-		// Persistence.createEntityManagerFactory("UnidadLibros");
-
-	//	EntityManager em = emf.createEntityManager();
-		//EntityTransaction t = em.getTransaction();
-		//t.begin();
-		em.merge(libro);
-		//t.commit();
-		//em.close();
-
-	}
+	//	em.merge(libro);
+		
+	//}
 	
 	
+	public LibroRepositorioJPA() {
+		super(Libro.class);
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public List<Libro> searchLibro(String titulo) {
 		System.out.println("searchLibro llega: "+titulo);
 	//	EntityManager em = emf.createEntityManager();
@@ -106,7 +70,7 @@ public class LibroRepositorioJPA implements LibroRepositorio {
 	
 	public List<Libro> buscarTodosOrdenados(String campo) {
 
-		System.out.println("hhhhhhhhhhhhhhhhhhhhh " + campo);
+		System.out.println("buscarTodosOrdenados llega: " + campo);
 
 		// Ejemplo 1
 //		EntityManager em = emf.createEntityManager();

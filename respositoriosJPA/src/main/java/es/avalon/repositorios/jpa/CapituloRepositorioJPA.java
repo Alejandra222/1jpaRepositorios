@@ -20,13 +20,9 @@ import es.avalon.repositorios.CapituloRepositorio;
 
 //@Component
 @Service
-public class CapituloRepositorioJPA implements CapituloRepositorio {
+public class CapituloRepositorioJPA  implements CapituloRepositorio {
 
 
-	//EntityManagerFactory emf = Persistence.createEntityManagerFactory("UnidadLibros");
-
-	//En el proyecto webmaven fichero ConfiguracionSpring.java tenemos
-	//EntityManagerFactory y EntityTransaction
 
 @PersistenceContext
 	EntityManager em;

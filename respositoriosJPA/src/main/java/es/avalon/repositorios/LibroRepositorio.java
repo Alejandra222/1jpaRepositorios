@@ -4,18 +4,18 @@ import java.util.List;
 
 import es.avalon.jpa.negocio.Libro;
 
-public interface LibroRepositorio {
+public interface LibroRepositorio extends GenericRepository<Libro, String> {
 
-	List<Libro> buscarTodos();
+	//List<Libro> buscarTodos();
 
-	void insertar(Libro libro);
+	//void insertar(Libro libro);
 
 	// libro le recibo desde la web new , DETACHED
-	void delete(Libro l2);
+	//void delete(Libro l2);
 
-	Libro buscarUno(String titulo);
+	//Libro buscarUno(String titulo);
 
-	void salvar(Libro libro);
+	//void salvar(Libro libro);
 
 	List<Libro> searchLibro(String titulo);
 
