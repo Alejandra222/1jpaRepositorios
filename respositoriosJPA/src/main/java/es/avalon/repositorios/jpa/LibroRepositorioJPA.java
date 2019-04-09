@@ -6,7 +6,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
@@ -19,33 +21,32 @@ import es.avalon.repositorios.LibroRepositorio;
 @Repository
 public class LibroRepositorioJPA implements LibroRepositorio {
 
-	EntityManagerFactory emf = Persistence.createEntityManagerFactory("UnidadLibros");
+	//EntityManagerFactory emf = Persistence.createEntityManagerFactory("UnidadLibros");
+	
+@PersistenceContext
+	EntityManager em;
+	
 
-	/* (non-Javadoc)
-	 * @see es.avalon.repositorios.LibroRepositorio#buscarTodos()
-	 */
 	public List<Libro> buscarTodos() {
 
-		EntityManager em = emf.createEntityManager();
+		//EntityManager em = emf.createEntityManager();
 		TypedQuery<Libro> consulta = em.createQuery("select l from Libro l", Libro.class);
 		return consulta.getResultList();
 
 	}
 
-	/* (non-Javadoc)
-	 * @see es.avalon.repositorios.LibroRepositorio#insertar(es.avalon.jpa.negocio.Libro)
-	 */
+
 	public void insertar(Libro libro) {
 
 		// EntityManagerFactory emf =
 		// Persistence.createEntityManagerFactory("UnidadLibros");
 
-		EntityManager em = emf.createEntityManager();
-		EntityTransaction t = em.getTransaction();
-		t.begin();
+		//EntityManager em = emf.createEntityManager();
+		//EntityTransaction t = em.getTransaction();
+		//t.begin();
 		em.persist(libro);
-		t.commit();
-		em.close();
+		//t.commit();
+		//em.close();
 
 	}
 
@@ -55,54 +56,46 @@ public class LibroRepositorioJPA implements LibroRepositorio {
 	 */
 	public void delete(Libro l2) {
 
-		EntityManager em = emf.createEntityManager();
-		EntityTransaction t = em.getTransaction();
-		t.begin();
+		//EntityManager em = emf.createEntityManager();
+		//EntityTransaction t = em.getTransaction();
+		//t.begin();
 		Libro libroGestionado = em.merge(l2);
 		em.remove(libroGestionado);
-		t.commit();
-		em.close();
+		//t.commit();
+		//em.close();
 
 	}
 
-	/* (non-Javadoc)
-	 * @see es.avalon.repositorios.LibroRepositorio#buscarUno(java.lang.String)
-	 */
 	public Libro buscarUno(String titulo) {
 
 		// EntityManagerFactory emf =
 		// Persistence.createEntityManagerFactory("UnidadLibros");
 
-		EntityManager em = emf.createEntityManager();
+		//EntityManager em = emf.createEntityManager();
 		Libro libro = em.find(Libro.class, titulo);
-		em.close();
+		//em.close();
 		return libro;
 
 	}
 
-	/* (non-Javadoc)
-	 * @see es.avalon.repositorios.LibroRepositorio#salvar(es.avalon.jpa.negocio.Libro)
-	 */
 	public void salvar(Libro libro) {
 
 		// EntityManagerFactory emf =
 		// Persistence.createEntityManagerFactory("UnidadLibros");
 
-		EntityManager em = emf.createEntityManager();
-		EntityTransaction t = em.getTransaction();
-		t.begin();
+	//	EntityManager em = emf.createEntityManager();
+		//EntityTransaction t = em.getTransaction();
+		//t.begin();
 		em.merge(libro);
-		t.commit();
-		em.close();
+		//t.commit();
+		//em.close();
 
 	}
 	
-	/* (non-Javadoc)
-	 * @see es.avalon.repositorios.LibroRepositorio#searchLibro(java.lang.String)
-	 */
+	
 	public List<Libro> searchLibro(String titulo) {
 		System.out.println("searchLibro llega: "+titulo);
-		EntityManager em = emf.createEntityManager();
+	//	EntityManager em = emf.createEntityManager();
 		TypedQuery<Libro> consulta = em.createQuery("select l from Libro l where l.titulo=:titulo", Libro.class);
 		
 		consulta.setParameter("titulo", titulo);
@@ -110,9 +103,7 @@ public class LibroRepositorioJPA implements LibroRepositorio {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see es.avalon.repositorios.LibroRepositorio#buscarTodosOrdenados(java.lang.String)
-	 */
+	
 	public List<Libro> buscarTodosOrdenados(String campo) {
 
 		System.out.println("hhhhhhhhhhhhhhhhhhhhh " + campo);
@@ -124,7 +115,7 @@ public class LibroRepositorioJPA implements LibroRepositorio {
 //		
 
 		// Ejemplo 2, más correcto
-		EntityManager em = emf.createEntityManager();
+		//EntityManager em = emf.createEntityManager();
 		TypedQuery<Libro> consulta = null;
 
 		if (campo.contentEquals("titulo")) {
