@@ -9,12 +9,14 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import es.avalon.jpa.negocio.Capitulo;
 import es.avalon.jpa.negocio.Libro;
 import es.avalon.repositorios.LibroRepositorio;
 
-@Component
+//@Component
+@Repository
 public class LibroRepositorioJPA implements LibroRepositorio {
 
 	EntityManagerFactory emf = Persistence.createEntityManagerFactory("UnidadLibros");
