@@ -1,46 +1,70 @@
 package es.avalon.repositorios.jpa;
 
 import java.util.List;
-
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-
 import es.avalon.jpa.negocio.Capitulo;
 import es.avalon.jpa.negocio.Libro;
 import es.avalon.repositorios.CapituloRepositorio;
+import es.avalon.repositorios.jpa.generic.GenericRepositoryJPA;
 
 //@Component
-@Service
-public class CapituloRepositorioJPA  implements CapituloRepositorio {
+//@Service
+@Repository
+public class CapituloRepositorioJPA extends GenericRepositoryJPA<Capitulo, String>  implements CapituloRepositorio {
 
 
 
-@PersistenceContext
+	public CapituloRepositorioJPA() {
+		super(Capitulo.class);
+		// TODO Auto-generated constructor stub
+	}
+
+
+
+/* TODO LO COMENTADO ESTA EN --> GenericRepositoryJPA
+ * 
+ * 	@PersistenceContext
 	EntityManager em;
-	
-	
+
+
 	public List<Capitulo> buscarTodos() {
 
-		//EntityManager em = emf.createEntityManager();
-		//query que va a generar un problema de n+1 queries
-		//solamente no lo generara si impriminos la información de los capitulos unicamiente
 		TypedQuery<Capitulo> consulta = em.createQuery("select l from Capitulo l", Capitulo.class);
 		return consulta.getResultList();
 
 	}
 
+
+	@Transactional
+	public void insertar(Capitulo capitulo) {
+		em.persist(capitulo);
+	}
+
+
+	public Capitulo buscarUnCapitulo(String titulo) {
+		return em.find(Capitulo.class, titulo);
+
+	}
+
+	@Transactional
+	public void deleteCapitulo(Capitulo capitulo) {
+		em.remove(em.merge(capitulo));
+
+	}
+
+	@Transactional
+	public void salvarCapitulo(Capitulo capitu) {
+		em.merge(capitu);
+	}
+	
+*/	
+
+
 	public List<Capitulo> buscarTodosCapitulosConSusLibros() {
 		//para obtener el libro: fetch
-		//EntityManager em = emf.createEntityManager();
 		TypedQuery<Capitulo> consulta = em.createQuery("select distinct c from Capitulo c join fetch c.libro", Capitulo.class);
 		return consulta.getResultList();
 
@@ -55,73 +79,18 @@ public class CapituloRepositorioJPA  implements CapituloRepositorio {
 		return consulta.getResultList();
 
 	}
-
-	@Transactional
-	public void insertar(Capitulo capitulo) {
-
-		
-		// EntityManagerFactory emf =
-		// Persistence.createEntityManagerFactory("UnidadLibros");
-
-		//EntityManager em = emf.createEntityManager();
-		//EntityTransaction t = em.getTransaction();
-		//t.begin();
-		em.persist(capitulo);
-		//t.commit();
-		//em.close();
-
-	}
-
-	
-	public Capitulo buscarUnCapitulo(String titulo) {
-		//para obtener el libro: fetch
-		//EntityManager em = emf.createEntityManager();
-		return em.find(Capitulo.class, titulo);
-
-	}
-
-@Transactional
-	public void deleteCapitulo(Capitulo capitulo) {
-
-		// EntityManagerFactory emf =
-		// Persistence.createEntityManagerFactory("UnidadLibros");
-
-		//EntityManager em = emf.createEntityManager();
-		//EntityTransaction t = em.getTransaction();
-		//t.begin();
-
-		//se hace el merge por si se crea un new capitulo, sino no haria falta
-		em.remove(em.merge(capitulo));
-		//t.commit();
-		//em.close();
-
-	}
-
-	@Transactional
-	public void salvarCapitulo(Capitulo capitu) {
-
-		//EntityManager em = emf.createEntityManager();
-		//EntityTransaction t = em.getTransaction();
-		//t.begin();
-		em.merge(capitu);
-		//t.commit();
-		//em.close();
-
-	}
-
-
 	public List<Capitulo> searchCapitulo(String titulo, String libro) {
 
-	//	EntityManager em = emf.createEntityManager();
+		//	EntityManager em = emf.createEntityManager();
 		TypedQuery<Capitulo> consulta = null;
-		
+
 		if(libro == null || libro.equals("")) {
-			
-			 consulta = em.createQuery("select c from Capitulo c where c.titulo=:titulo", Capitulo.class);
+
+			consulta = em.createQuery("select c from Capitulo c where c.titulo=:titulo", Capitulo.class);
 			consulta.setParameter("titulo", titulo);
 		}else {
-			
-		    consulta = em.createQuery("select c from Capitulo c where c.titulo=:titulo and c.libro.titulo=:libro", Capitulo.class);
+
+			consulta = em.createQuery("select c from Capitulo c where c.titulo=:titulo and c.libro.titulo=:libro", Capitulo.class);
 			consulta.setParameter("titulo", titulo);
 			consulta.setParameter("libro", libro);
 		}
@@ -130,10 +99,10 @@ public class CapituloRepositorioJPA  implements CapituloRepositorio {
 	}
 
 
-	
+
 	public List<Capitulo> OrdenarCapitulosPorCampo(String campo, String libro) {
 
-		System.out.println(libro+"hhhhhhhhhhhhhhhhhhhhh " + campo);
+		System.out.println(libro+" OrdenarCapitulosPorCampo: " + campo);
 
 
 		// Ejemplo 2, más correcto
