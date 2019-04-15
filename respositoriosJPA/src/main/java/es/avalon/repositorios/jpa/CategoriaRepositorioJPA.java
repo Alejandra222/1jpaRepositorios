@@ -27,7 +27,7 @@ public class CategoriaRepositorioJPA extends GenericRepositoryJPA<Categoria,Inte
 	public Iterable<Libro> buscarLibrosPorCategoriaQuery(Categoria c){
 	
 		//LE PASO UNA CATEGORIA Y BUSCA EN LA CLASE LIBROS LA LISTA DE CATEGORIAS Y MIRA SI ESTA
-		TypedQuery<Libro> consulta = em.createQuery("select l from libro l where :categoria member of l.categorias", Libro.class);
+		TypedQuery<Libro> consulta = em.createQuery("select l from Libro l where :categoria member of l.categorias", Libro.class);
 		consulta.setParameter("categoria", c);
 		return consulta.getResultList();
 	}
