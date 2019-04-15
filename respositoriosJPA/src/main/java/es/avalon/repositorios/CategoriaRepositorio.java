@@ -3,6 +3,7 @@ package es.avalon.repositorios;
 
 
 import es.avalon.jpa.negocio.Categoria;
+import es.avalon.jpa.negocio.Libro;
 
 
 public interface CategoriaRepositorio extends GenericRepository<Categoria, Integer> {
@@ -21,5 +22,7 @@ public interface CategoriaRepositorio extends GenericRepository<Categoria, Integ
 	//List<Libro> searchLibro(String titulo);
 
 	//List<Libro> buscarTodosOrdenados(String campo);
+	
+	public Iterable<Libro> buscarLibrosPorCategoriaQuery(Categoria c);
 
 }

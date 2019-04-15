@@ -1,9 +1,13 @@
 package es.avalon.repositorios.jpa;
 
+import javax.persistence.TypedQuery;
+
 import org.springframework.stereotype.Repository;
 
 
+
 import es.avalon.jpa.negocio.Categoria;
+import es.avalon.jpa.negocio.Libro;
 import es.avalon.repositorios.CategoriaRepositorio;
 import es.avalon.repositorios.jpa.generic.GenericRepositoryJPA;
 
@@ -20,6 +24,13 @@ public class CategoriaRepositorioJPA extends GenericRepositoryJPA<Categoria,Inte
 		// TODO Auto-generated constructor stub
 	}
 
+	public Iterable<Libro> buscarLibrosPorCategoriaQuery(Categoria c){
+	
+		//LE PASO UNA CATEGORIA Y BUSCA EN LA CLASE LIBROS LA LISTA DE CATEGORIAS Y MIRA SI ESTA
+		TypedQuery<Libro> consulta = em.createQuery("select l from libro l where :categoria member of l.categorias", Libro.class);
+		consulta.setParameter("categoria", c);
+		return consulta.getResultList();
+	}
 
 	/*
 	 *  TODO LO COMENTADO ESTA EN --> GenericRepositoryJPA
