@@ -1,16 +1,18 @@
 package es.avalon.repositorios;
 
 import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import es.avalon.jpa.negocio.Capitulo;
 import es.avalon.jpa.negocio.Libro;
 
-public interface CapituloRepositorio extends GenericRepository<Capitulo, String>{
+//public interface CapituloRepositorio extends GenericRepository<Capitulo, String>{
+public interface CapituloRepositorio extends JpaRepository<Capitulo, String>{
 
 	//List<Capitulo> buscarTodos();
 
 	//List<Capitulo> buscarTodosCapitulosConSusLibros();
-
-	List<Capitulo> buscarTodosParaUnLibro(Libro l);
 
 	//void insertar(Capitulo capitulo);
 
@@ -19,9 +21,16 @@ public interface CapituloRepositorio extends GenericRepository<Capitulo, String>
 	//void deleteCapitulo(Capitulo capitulo);
 
 	//void salvarCapitulo(Capitulo capitu);
+	
+	
+	
+	
+	//List<Capitulo> buscarTodosParaUnLibro(Libro l);
+	//@Query("select l fom Libro l") join fetch
+	//List<Libro> buscarTodosParaUnLibro();
+	
+	//List<Capitulo> searchCapitulo(String titulo, String libro);
 
-	List<Capitulo> searchCapitulo(String titulo, String libro);
-
-	List<Capitulo> OrdenarCapitulosPorCampo(String campo, String libro);
+	//List<Capitulo> OrdenarCapitulosPorCampo(String campo, String libro);
 
 }

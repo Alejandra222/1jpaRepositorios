@@ -2,11 +2,14 @@ package es.avalon.repositorios;
 
 
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import es.avalon.jpa.negocio.Categoria;
 import es.avalon.jpa.negocio.Libro;
 
 
-public interface CategoriaRepositorio extends GenericRepository<Categoria, Integer> {
+//public interface CategoriaRepositorio extends GenericRepository<Categoria, Integer> {
+public interface CategoriaRepositorio extends JpaRepository<Categoria, Integer> {
 
 	//List<Libro> buscarTodos();
 
@@ -23,6 +26,8 @@ public interface CategoriaRepositorio extends GenericRepository<Categoria, Integ
 
 	//List<Libro> buscarTodosOrdenados(String campo);
 	
-	public Iterable<Libro> buscarLibrosPorCategoriaQuery(Categoria c);
+	
+	
+	//public Iterable<Libro> buscarLibrosPorCategoriaQuery(Categoria c);
 
 }
