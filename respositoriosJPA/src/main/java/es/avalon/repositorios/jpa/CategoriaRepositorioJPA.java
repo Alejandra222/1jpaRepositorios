@@ -2,6 +2,7 @@ package es.avalon.repositorios.jpa;
 
 import org.springframework.stereotype.Repository;
 
+
 import es.avalon.jpa.negocio.Categoria;
 import es.avalon.repositorios.CategoriaRepositorio;
 import es.avalon.repositorios.jpa.generic.GenericRepositoryJPA;
