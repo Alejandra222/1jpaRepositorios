@@ -2,6 +2,7 @@ package es.avalon.repositorios;
 
 import java.util.List;
 
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import es.avalon.jpa.negocio.Capitulo;
@@ -10,6 +11,9 @@ import es.avalon.jpa.negocio.Libro;
 //public interface CapituloRepositorio extends GenericRepository<Capitulo, String>{
 public interface CapituloRepositorio extends JpaRepository<Capitulo, String>{
 
+	public Iterable<Capitulo> findAllByLibro(Libro libro);
+	
+	
 	//List<Capitulo> buscarTodos();
 
 	//List<Capitulo> buscarTodosCapitulosConSusLibros();
@@ -33,4 +37,6 @@ public interface CapituloRepositorio extends JpaRepository<Capitulo, String>{
 
 	//List<Capitulo> OrdenarCapitulosPorCampo(String campo, String libro);
 
+	
+	
 }
