@@ -26,7 +26,7 @@ public interface CapituloRepositorio extends JpaRepository<Capitulo, String>{
 	
 	
 	//List<Capitulo> buscarTodosParaUnLibro(Libro l);
-	//@Query("select l fom Libro l") join fetch
+	//@Query("select l from Libro l join fetch l.categorias") 
 	//List<Libro> buscarTodosParaUnLibro();
 	
 	//List<Capitulo> searchCapitulo(String titulo, String libro);
